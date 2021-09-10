@@ -1,0 +1,27 @@
+{
+  "name": "panel",
+  "version": "1.0.0",
+  "description": "Aktolu Homepage",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "gulp": "gulp watch",
+    "gulp-run": "gulp"
+  },
+  "keywords": [],
+  "author": "Muhammed Aktolu",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-clean": "*",
+    "gulp-concat": "*",
+    "gulp-rename": "*",
+    "gulp-sass": "*",
+    "gulp-terser": "*",
+    "merge-stream": "*",
+    "sass": "*"
+  }
+}
