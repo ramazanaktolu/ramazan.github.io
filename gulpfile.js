@@ -9,41 +9,41 @@
 
 // VARIABLES
 
-let libVar = {};
-libVar.path = './lib/';
+let lib = {};
+lib.path = './lib/';
 
 // src
-libVar.src = {};
-libVar.src.path = libVar.path + 'src/';
-libVar.src.js = libVar.src.path + 'js/';
-libVar.src.scss = libVar.src.path + 'scss/';
+lib.src = {};
+lib.src.path = lib.path + 'src/';
+lib.src.js = lib.src.path + 'js/';
+lib.src.scss = lib.src.path + 'scss/';
 
 // dist
-libVar.dist = {};
-libVar.dist.path = libVar.path + 'dist/';
-libVar.dist.js = libVar.dist.path + 'js/';
-libVar.dist.css = libVar.dist.path + 'css/';
+lib.dist = {};
+lib.dist.path = lib.path + 'dist/';
+lib.dist.js = lib.dist.path + 'js/';
+lib.dist.css = lib.dist.path + 'css/';
 
 // watch
-libVar.watch = {
+lib.watch = {
 	scss: {
 		static: [
-			libVar.src.scss + 'static.scss',
-			libVar.src.scss + 'static/**/*.scss',
+			lib.src.scss + 'static.scss',
+			lib.src.scss + 'static/**/*.scss',
 		],
 		custom: [
-			libVar.src.scss + '_custom.scss',
+			lib.src.scss + 'custom.scss',
 		],
 	},
 	js: {
 		custom: [
-			libVar.src.js + 'custom.js',
+			lib.src.js + 'custom.js',
 		],
 	},
 };
 
-console.log(libVar);
-console.log(libVar.watch.js.custom[0]);
+console.log(lib);
+console.log(lib.watch.js.custom[0]);
 
 // END VARIABLES
 
@@ -114,27 +114,27 @@ function copyFile(src, dst, renameOptions) {
 
 // gulp.task('p.copy.css2sass.elfinder', function(){
 // 	return mergeStream(
-// 		copyFile(panel.libVar + 'tools/elfinder/css/elfinder.full.css', panel.scss + 'import/elfinder', {extname: '.scss'}),
-// 		copyFile(panel.libVar + 'tools/elfinder/css/theme.css', panel.scss + 'import/elfinder', {extname: '.scss'})
+// 		copyFile(panel.lib + 'tools/elfinder/css/elfinder.full.css', panel.scss + 'import/elfinder', {extname: '.scss'}),
+// 		copyFile(panel.lib + 'tools/elfinder/css/theme.css', panel.scss + 'import/elfinder', {extname: '.scss'})
 // 	);
 // });
 
 // SCSS Tasks
 gulp.task('scss.custom', function(){
-	return scss(libVar.src.scss + 'custom.scss', libVar.dist.css);
+	return scss(lib.src.scss + 'custom.scss', lib.dist.css);
 });
 
 // JS Tasks
 gulp.task('js.custom', function(){
-	return js(libVar.watch.js.custom, libVar.dist.js, 'custom.min.js');
+	return js(lib.watch.js.custom, lib.dist.js, 'custom.min.js');
 });
 
 
 // Watch Tasks
 gulp.task('watch', function(){
 	// SCSS
-	gulp.watch(libVar.watch.scss.custom, gulp.task('scss.custom'));
+	gulp.watch(lib.watch.scss.custom, gulp.task('scss.custom'));
 	
 	// JS
-	gulp.watch(libVar.watch.js.custom, gulp.task('js.custom'));
+	gulp.watch(lib.watch.js.custom, gulp.task('js.custom'));
 });
