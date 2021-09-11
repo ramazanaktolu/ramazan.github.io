@@ -1,14 +1,6 @@
 "use strict";
 
-/**
- * Source: https://sharkcoder.com/tools/gulp
- */
-
-// function mergeObj(path, )
-
-
 // VARIABLES
-
 let lib = {};
 lib.path = './lib/';
 
@@ -41,13 +33,11 @@ lib.watch = {
 		],
 	},
 };
-
 // END VARIABLES
 
 const gulp = require('gulp');
 
 // Load plugins
-
 const terser = require('gulp-terser');
 const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
@@ -66,7 +56,7 @@ function js(src, dst, dst_name) {
 }
 
 // SCSS function
-function scss(src, dst){
+function scss(src, dst) {
 	return gulp.src(src, {sourcemaps: true})
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 		.pipe(autoprefixer({
