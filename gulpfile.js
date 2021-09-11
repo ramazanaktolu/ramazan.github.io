@@ -42,9 +42,6 @@ lib.watch = {
 	},
 };
 
-console.log(lib);
-console.log(lib.watch.js.custom[0]);
-
 // END VARIABLES
 
 const gulp = require('gulp');
@@ -55,22 +52,9 @@ const terser = require('gulp-terser');
 const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
-const clean = require('gulp-clean');
-const rename = require('gulp-rename');
-const mergeStream = require('merge-stream');
-
-
-// Clean assets
-function clear() {
-	return gulp.src('./assets/*', {
-		read: false
-	})
-		.pipe(clean());
-}
 
 // JS function
 function js(src, dst, dst_name) {
-	console.log(src, dst, dst_name);
 	return gulp.src(src, {sourcemaps: true})
 		.pipe(concat(dst_name))
 		.pipe(terser({
@@ -91,33 +75,6 @@ function scss(src, dst){
 		}))
 		.pipe(gulp.dest(dst, {sourcemaps: '.'}));
 }
-
-function copyFile(src, dst, renameOptions) {
-	/*
-	rename({
-		dirname: "main/text/ciao",
-		basename: "aloha",
-		prefix: "bonjour-",
-		suffix: "-hola",
-		extname: ".md"
-	}) // output ./dist/main/text/ciao/bonjour-aloha-hola.md
-	
-	rename({
-		extname: '.scss',
-	})
-	*/
-	
-	return gulp.src(src)
-		.pipe(rename(renameOptions))
-		.pipe(gulp.dest(dst));
-}
-
-// gulp.task('p.copy.css2sass.elfinder', function(){
-// 	return mergeStream(
-// 		copyFile(panel.lib + 'tools/elfinder/css/elfinder.full.css', panel.scss + 'import/elfinder', {extname: '.scss'}),
-// 		copyFile(panel.lib + 'tools/elfinder/css/theme.css', panel.scss + 'import/elfinder', {extname: '.scss'})
-// 	);
-// });
 
 // SCSS Tasks
 gulp.task('scss.custom', function(){
