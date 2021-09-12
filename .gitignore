@@ -1,0 +1,5 @@
+# Node Library
+node_modules
+
+# Intellij Project Files
+.idea
