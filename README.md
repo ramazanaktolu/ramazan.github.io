@@ -1,9 +1,9 @@
 # Too much basic personal contact theme
 
-[Click here](https://nodejs.org/) for preview and results of this project.
+[Click here](https://aktolu.github.io/) for preview and results of this project.
 
 ### Requirements (For Development)
-- Node.js
+- [Node.js](https://nodejs.org/)
 
 ### Installation
 ```sh
