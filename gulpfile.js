@@ -1,5 +1,7 @@
 "use strict";
 
+const production = true;
+
 // VARIABLES
 let lib = {};
 lib.path = './lib/';
@@ -30,6 +32,7 @@ lib.watch = {
 	js: {
 		custom: [
 			lib.src.js + 'custom.js',
+			lib.src.js + 'custom2.js',
 		],
 	},
 };
@@ -42,28 +45,60 @@ const terser = require('gulp-terser');
 const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
+const sourcemaps = require('gulp-sourcemaps');
+const path = require("path");
 
 // JS function
-function js(src, dst, dst_name) {
-	return gulp.src(src, {sourcemaps: true})
-		.pipe(concat(dst_name))
-		.pipe(terser({
-			output: {
-				comments: false
-			},
-		}))
-		.pipe(gulp.dest(dst, {sourcemaps: '.'}));
+function js(src, dst, dst_name, srcBase = lib.src.js) {
+	let sourceMapsOptions = {
+		includeContent: false, // bunun false ile çalışabilmesi için alttaki sourceRoot kısmının doğru ayarlanması gerekir
+		sourceRoot: path.relative(dst, srcBase) // Önemli. Genellikle Çıktı: "../../src/js"
+	};
+	
+	if (production) {
+		return gulp.src(src)
+			.pipe(concat(dst_name))
+			.pipe(terser({
+				output: {
+					comments: false,
+				},
+			}))
+			.pipe(gulp.dest(dst));
+	} else {
+		return gulp.src(src)
+			.pipe(sourcemaps.init())
+			.pipe(concat(dst_name))
+			.pipe(sourcemaps.write('.', sourceMapsOptions))
+			.pipe(gulp.dest(dst));
+	}
 }
 
 // SCSS function
-function scss(src, dst) {
-	return gulp.src(src, {sourcemaps: true})
-		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-		.pipe(autoprefixer({
-			overrideBrowserslist: ['last 2 versions'],
-			cascade: false
-		}))
-		.pipe(gulp.dest(dst, {sourcemaps: '.'}));
+function scss(src, dst, srcBase = lib.src.scss){
+	let sourceMapsOptions = {
+		includeContent: false, // bunun false ile çalışabilmesi için alttaki sourceRoot kısmının doğru ayarlanması gerekir
+		sourceRoot: path.relative(dst, srcBase) // Önemli. Genellikle Çıktı: "../../src/scss"
+	};
+	
+	if (production) {
+		return gulp.src(src)
+			.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+			.pipe(autoprefixer({
+				overrideBrowserslist: ['last 2 versions'],
+				cascade: false,
+			}))
+			.pipe(gulp.dest(dst));
+	} else {
+		return gulp.src(src)
+			.pipe(sourcemaps.init())
+			.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+			.pipe(autoprefixer({
+				overrideBrowserslist: ['last 2 versions'],
+				cascade: false,
+			}))
+			.pipe(sourcemaps.write('.', sourceMapsOptions))
+			.pipe(gulp.dest(dst));
+	}
 }
 
 // SCSS Tasks

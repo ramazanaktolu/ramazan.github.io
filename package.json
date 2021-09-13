@@ -20,6 +20,7 @@
     "gulp-concat": "*",
     "gulp-rename": "*",
     "gulp-sass": "*",
+    "gulp-sourcemaps": "*",
     "gulp-terser": "*",
     "merge-stream": "*",
     "sass": "*"
