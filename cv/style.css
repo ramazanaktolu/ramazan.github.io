@@ -169,3 +169,13 @@ footer {
         text-align: center;
     }
 }
+
+p.info {
+    background-color: rgba(0,0,0, .6);
+    text-shadow: 3px 3px 2px #000000;
+    padding: 1rem;
+}
+
+section.info {
+    padding: 0;
+}
